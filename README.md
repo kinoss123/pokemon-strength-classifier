@@ -169,6 +169,10 @@ We chose `MLPClassifier` because:
 
 ![Confusion Matrix](img/confusion_matrix.png)
 
+### Classification Report
+
+![Classification Report](img/classification_report.png)
+
 Several limitations affected performance.
 
 ### 1. Class Imbalance
@@ -193,7 +197,7 @@ This limits the model’s ability to generalize.
 
 ### 4. Overlapping Statistics
 
-Many Pokémon share similar stat distributions despite different rankings.
+Many Pokémon share similar stat distributions despite belonging to different tiers. Raw numbers alone are insufficient to capture competitive value.
 
 ## AI-Assisted Improvement
 
