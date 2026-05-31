@@ -110,14 +110,24 @@ Pokemon-strength-classifier/
 
 ### Pipeline
 
-```text
+```
 Dataset
    ↓
-Data Preprocessing
+Data Cleaning & Label Encoding
    ↓
-Model Training
+Train / Dev / Test Split (stratified)
    ↓
-Evaluation
+Feature Scaling (StandardScaler)
+   ↓
+          ┌──────────────────────────────┐
+          │                              │
+   Standard Features              PCA (n=2 components)
+          │                              │
+   MLPClassifier                  MLPClassifier
+  (hidden=(10,))                (hidden=(100,))
+          │                              │
+   Evaluation                     Evaluation
+          └──────────────────────────────┘
 ```
 
 ### Baseline Model — Standard Pipeline
@@ -155,23 +165,25 @@ We chose `MLPClassifier` because:
 
 ## Error Analysis
 
-TODO: insert Confusion Matrix, classification report
+### Confusion Matrix
+
+![Confusion Matrix](img/confusion_matrix.png)
 
 Several limitations affected performance.
 
 ### 1. Class Imbalance
 
-Some tiers contain very limited data.
+Some tiers contain very few Pokémon samples. Rare tiers (e.g., `G`, `S`) are underrepresented, making it harder for the model to learn their boundaries.
 
 ### 2. Missing Features
 
-Important information was unavailable, including:
-
-* Pokémon Type
-* Abilities
-* Legendary Status
-* Evolution Stage
-* Competitive battle context
+The model lacks access to information that competitive players consider critical:
+ 
+- Pokémon Type (e.g., Water, Psychic)
+- Abilities (e.g., Speed Boost, Intimidate)
+- Legendary / Mythical status
+- Evolution stage
+- Held item / competitive move pool
 
 ### 3. Small Dataset Size
 
